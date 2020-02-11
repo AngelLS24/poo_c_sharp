@@ -1,0 +1,11 @@
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\obj\Debug\netcoreapp3.1\Ejercicio16.csprojAssemblyReference.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\obj\Debug\netcoreapp3.1\Ejercicio16.AssemblyInfoInputs.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\obj\Debug\netcoreapp3.1\Ejercicio16.AssemblyInfo.cs
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\bin\Debug\netcoreapp3.1\Ejercicio16.exe
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\bin\Debug\netcoreapp3.1\Ejercicio16.deps.json
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\bin\Debug\netcoreapp3.1\Ejercicio16.runtimeconfig.json
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\bin\Debug\netcoreapp3.1\Ejercicio16.runtimeconfig.dev.json
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\bin\Debug\netcoreapp3.1\Ejercicio16.dll
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\bin\Debug\netcoreapp3.1\Ejercicio16.pdb
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\obj\Debug\netcoreapp3.1\Ejercicio16.dll
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio16\Ejercicio16\obj\Debug\netcoreapp3.1\Ejercicio16.pdb
