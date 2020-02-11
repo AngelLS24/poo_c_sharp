@@ -1,0 +1,11 @@
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\bin\Debug\netcoreapp3.1\Ejercicio13.exe
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\bin\Debug\netcoreapp3.1\Ejercicio13.deps.json
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\bin\Debug\netcoreapp3.1\Ejercicio13.runtimeconfig.json
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\bin\Debug\netcoreapp3.1\Ejercicio13.runtimeconfig.dev.json
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\bin\Debug\netcoreapp3.1\Ejercicio13.dll
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\bin\Debug\netcoreapp3.1\Ejercicio13.pdb
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\obj\Debug\netcoreapp3.1\Ejercicio13.csprojAssemblyReference.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\obj\Debug\netcoreapp3.1\Ejercicio13.AssemblyInfoInputs.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\obj\Debug\netcoreapp3.1\Ejercicio13.AssemblyInfo.cs
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\obj\Debug\netcoreapp3.1\Ejercicio13.dll
+C:\Users\Angel\Desktop\poo_c_sharp\Serie\Ejercicio13\Ejercicio13\obj\Debug\netcoreapp3.1\Ejercicio13.pdb
