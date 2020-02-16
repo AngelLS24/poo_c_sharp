@@ -46,7 +46,7 @@ namespace Consola
             // Contador que nos dice el numero del comando
             int contador = 0;
             // Recorre la lista del historial
-            foreach(var item in history)
+            foreach (var item in history)
             {
                 // Aumenta el contador
                 contador++;
@@ -104,9 +104,9 @@ namespace Consola
                 // Si no tiene comillas lo separa por espacio
                 palabras = comando.Split(" ");
             // Realiza un cliclo, este ciclo quita los espacios en blanco de las palabras separadas del comando
-            for(int i = 0; i < palabras.Length; i++)
+            for (int i = 0; i < palabras.Length; i++)
                 palabras[i] = palabras[i].TrimEnd(' ');
-            
+
             try
             {
                 // Recorre las palabras almacenadas
@@ -135,10 +135,10 @@ namespace Consola
         public static bool TouchComand(string path)
         {
             // Verifica que el archivo no exista
-            if(!File.Exists(path))
-            { 
+            if (!File.Exists(path))
+            {
                 // Crea el archivo
-                using(FileStream fs = File.Create(path))
+                using (FileStream fs = File.Create(path))
                     // Cierra el archivo
                     fs.Close();
                 // Retorna verdader

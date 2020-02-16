@@ -1,0 +1,11 @@
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\bin\Debug\netcoreapp3.1\Consola.exe
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\bin\Debug\netcoreapp3.1\Consola.deps.json
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\bin\Debug\netcoreapp3.1\Consola.runtimeconfig.json
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\bin\Debug\netcoreapp3.1\Consola.runtimeconfig.dev.json
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\bin\Debug\netcoreapp3.1\Consola.dll
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\bin\Debug\netcoreapp3.1\Consola.pdb
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\obj\Debug\netcoreapp3.1\Consola.csprojAssemblyReference.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\obj\Debug\netcoreapp3.1\Consola.AssemblyInfoInputs.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\obj\Debug\netcoreapp3.1\Consola.AssemblyInfo.cs
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\obj\Debug\netcoreapp3.1\Consola.dll
+C:\Users\Angel\Desktop\poo_c_sharp\Tareas\Consola\Consola\obj\Debug\netcoreapp3.1\Consola.pdb
