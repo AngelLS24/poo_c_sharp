@@ -1,0 +1,10 @@
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\bin\Debug\Escuela.exe.config
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\bin\Debug\Escuela.exe
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\bin\Debug\Escuela.pdb
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Debug\Escuela.csprojAssemblyReference.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Debug\Escuela.Properties.Resources.resources
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Debug\Escuela.csproj.GenerateResource.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Debug\Escuela.exe
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Debug\Escuela.pdb
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Debug\Escuela.FProfesores.resources
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Debug\Escuela.Menu.resources
