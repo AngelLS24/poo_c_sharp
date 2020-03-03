@@ -35,7 +35,6 @@
             this.TBUser = new System.Windows.Forms.TextBox();
             this.TBPass = new System.Windows.Forms.TextBox();
             this.BSalir = new System.Windows.Forms.Button();
-            this.LAddProf = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -46,7 +45,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Iniciar Sesion";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // LUsuario
             // 
@@ -93,22 +92,11 @@
             this.BSalir.UseVisualStyleBackColor = true;
             this.BSalir.Click += new System.EventHandler(this.BSalir_Click);
             // 
-            // LAddProf
-            // 
-            this.LAddProf.AutoSize = true;
-            this.LAddProf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LAddProf.Location = new System.Drawing.Point(168, 97);
-            this.LAddProf.Name = "LAddProf";
-            this.LAddProf.Size = new System.Drawing.Size(83, 13);
-            this.LAddProf.TabIndex = 6;
-            this.LAddProf.Text = "Agregar Usuario";
-            // 
             // FProfesores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(356, 180);
-            this.Controls.Add(this.LAddProf);
             this.Controls.Add(this.BSalir);
             this.Controls.Add(this.TBPass);
             this.Controls.Add(this.TBUser);
@@ -131,7 +119,6 @@
         private System.Windows.Forms.TextBox TBUser;
         private System.Windows.Forms.TextBox TBPass;
         private System.Windows.Forms.Button BSalir;
-        private System.Windows.Forms.Label LAddProf;
     }
 }
 

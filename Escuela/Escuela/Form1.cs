@@ -17,24 +17,68 @@ namespace Escuela
 {
     public partial class FProfesores : Form
     {
+        // Nombre de la base de datos
+        public string databaseName = "Escuela";
+        // Nombre del servidor
+        public string serverName = "localhost";
+        // Contador de intentos de inicio de sesion
         public int cont = 1;
         public FProfesores()
         {
+
             InitializeComponent();
+            try
+            {
+                // Se genera la cadena con la especificaciones de la coneccion a la base de datos
+                string connectionString = "Data Source=" + serverName + ";Integrated security=SSPI;" +
+                    "Initial Catalog=master";
+                // Se realiza una consulta que nos regresa 1 si la base de datos existe y 0 si no existe
+                string query = "SELECT COUNT(*) FROM sysdatabases WHERE name = 'Escuela'";
+                // Se realiza la conexion
+                SqlConnection conect = new SqlConnection(connectionString);
+                // Se abre la conexion
+                conect.Open();
+                // Se ejecuta la consulta
+                SqlCommand cmd = new SqlCommand(query, conect);
+                // Se lee el resultado de la consulta
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read()) // Si hay datos
+                {
+                    // Valida si existe la base de datos
+                    if(Convert.ToInt32(dr[0]) == 0)
+                    {
+                        // Se llama a la funcion que crea la base de datos, recibe el nombre del servidor y de la base de datos
+                        Escuela_DB.BaseDeDatos(databaseName, serverName);
+                        Mensaje("\tBienvenido al sistema de Profesores", "Inicio");
+                    }else
+                        Mensaje("\tBienvenido al sistema de Profesores", "Inicio");
+                }
+                // Cierra la conexion
+                conect.Close();
+            }
+            catch(Exception e)
+            {
+                Mensaje("\tError conectando con la base de datos: " + e.Message, "Error");
+                Application.Exit();
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             string user = TBUser.Text;
             string pass = TBPass.Text;
-
+            // Valida que no se ingresen valores nulos o campos vacios
             if (!String.IsNullOrEmpty(user) && !String.IsNullOrEmpty(pass))
             {
                 try
                 {
+                    // llama a la funcion para conectarse a la base de dato, recibe el usuario y password
                     string conexion = ConectaDB(user, pass);
+                    // Inicia la vista del menu
                     Menu menu = new Menu(user, conexion);
+                    // Hace visible el menu
                     menu.Visible = true;
+                    // Hace invisible la vista principal
                     Visible = false;
                 }
                 catch (SqlException)
@@ -58,10 +102,12 @@ namespace Escuela
 
         public string ConectaDB(string user, string pass)
         {
-            string connectionString;
-            connectionString = @"Server=SQL_SERVER;Initial Catalog=Test;User ID=" + user + ";Password=" + pass;
+            // Se genera la cadena con la especificaciones de la coneccion a la base de datos
+            string connectionString = @"Data Source=" + serverName + ";Initial Catalog=" + databaseName + 
+                ";User ID=" + user + ";Password=" + pass;
+            // Se realiza la conexion
             SqlConnection conect = new SqlConnection(connectionString);
-
+            // Abre la conexion
             conect.Open();
             Mensaje("Bienvenido de nuevo " + user, "Bienbenido");
             conect.Close();
@@ -74,256 +120,163 @@ namespace Escuela
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+     * Clase que se utiliza para la creación de la base de datos
+     */
     public static class Escuela_DB
     {
-        public static void BaseDeDatos()
+        // Funcion que llama a todos los metodos que se utilizan para crear la base de datos, recibe el nombre del servidor
+        // y el nombre de la base de datos
+        public static void BaseDeDatos(string databaseName, string serverName)
         {
-            string databaseName = "Escuela";
-            string serverName = "SQL_SERVER";
+            // Funcion que guardara las consultas
             SqlCommand cmd = null;
-            Tuple<string, string> credencial;
-            //Acá pongo como debería de ser llamado sobre la función principal del programa
-            SqlConnection conexion = new SqlConnection("Server="+ serverName +";Integrated security=SSPI;database=master");
-            
-            CreateDB(conexion, cmd, databaseName);
-            credencial = CreateUser(conexion);
-            CreateTables(conexion, cmd, databaseName, serverName, credencial);
+            // Realiza una conexion a la base de datos
+            SqlConnection conexion = new SqlConnection("Data Source=" + serverName +";Integrated security=SSPI;database=master");
+            try
+            {
+                // Llama a la funcion que crea la base de datos
+                CreateDB(conexion, cmd, databaseName);
+                // Llama a la funcion que crea el usuario/login de la base de datos
+                CreateUser(conexion, cmd, serverName, databaseName);
+                // Llama a la funcion que crea la tabla
+                CreateTables(conexion, cmd, databaseName, serverName);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error en la base de datos");
+            }
         }
-
+        // Funcion que crea la base de datos
         public static void CreateDB(SqlConnection conexion, SqlCommand cmd, string databaseName)
         {
-            string databaseLocation = "C:\\" + databaseName;    //Sin extensión
-            //string query;
-
-            //SqlConnection conexion = new SqlConnection("Server=localhost;Integrated security=SSPI;database=master");
-            //Crea un nuevo objeto de SQL para realizar la conexión al localhost
-
-            string query = "CREATE DATABASE " + databaseName + " ON PRIMARY " +
-        				    "(NAME = " + databaseName + "_Data, " +					//Creamos el archivo Escuela_Data
-		        		    "FILENAME = '" + databaseLocation + ".mdf', " +			//En la ubicación C:\\Escuela.mdf
-		        		    "SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%) " +
-		        		    "LOG ON (NAME = " + databaseName +"_Log, " +			//Creamos el archivo Escuela_Log
-		        		    "FILENAME = '"+ databaseLocation + ".ldf', " +			//En la ubicación C:\\Escuela.ldf
-		        		    "SIZE = 1MB, " +
-		        		    "MAXSIZE = 5MB, " +
-		        		    "FILEGROWTH = 10%)";
-
+            // Query que crea la base de datos
+            string query = "CREATE DATABASE " + databaseName;
+            // Se guarda el comando
     	    cmd = new SqlCommand(query, conexion);
 	        try 
 	        {
-	            conexion.Open();
+                // Verifica si la conexion esta abierta
+                if (conexion.State == ConnectionState.Closed)
+                    conexion.Open(); // Si esta cerrada, abre la conexion
+                // Ejecuta el query
 			    cmd.ExecuteNonQuery();
 			    MessageBox.Show("Se creó la base de datos...", "Escuela", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			    //Muestra mensaje al invocar el método en un Form
 	        }
-	        catch (Exception ex)		//Atrapamos la excepción
+	        catch (Exception ex)
 	        {	
                 MessageBox.Show(ex.ToString(), "Escuela", MessageBoxButtons.OK, MessageBoxIcon.Information);	
             }
-	        finally			//Cerrammos el canal de comunicación de estar abierto pase lo que pase
+	        finally
 	        {
+                // Cierra la conexion
 			    if (conexion.State == ConnectionState.Open)
 				    conexion.Close();
 	        }
 	    }
 
-        public static Tuple<string, string> CreateUser(SqlConnection conexion)
+        public static void CreateUser(SqlConnection conexion, SqlCommand cmd, string serverName, string databaseName)
         {
-            string log = "prof";
-            string usr = "user";
-            string pass = "hola123.,";
-            string login = "create login" + log + " with password = '"+ pass +"'";
-            string user = "create user" + usr + " for login " + log;
-            Tuple<string, string> credencialUsuario = new Tuple<string, string>(usr, pass);
-
-            if (conexion.State == ConnectionState.Closed)
-                conexion.Open();
-
-            SqlCommand cmd;
+            string log = "pepe"; // Alias
+            string usr = "pepe"; // Nombre del usuario
+            string pass = "hola123.,"; // Contraseña
+            // Se crea el login a la base de datos
+            string login = "CREATE LOGIN " + log + " WITH PASSWORD = '" + pass +"'";
+            // Se crea el usuario para el login
+            string user = "CREATE USER " + usr + " FOR LOGIN " + log ;
+            // Cierra la conexio si se encuentra abierta
+            if (conexion.State == ConnectionState.Open)
+                conexion.Close();
+            // Se genera la cadena con la especificaciones de la coneccion a la base de datos
+            conexion.ConnectionString = "Data Source=" + serverName + ";Integrated security=SSPI;Initial Catalog=" + databaseName;
             try
             {
+                // Abre la conexion a la base de datos
+                conexion.Open();
+                // Ejecuta el query que crea el login
                 cmd = new SqlCommand(login, conexion);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Login '" + log + "' creado", "Escuela", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                // Ejecuta el query que crea al usuario
                 cmd = new SqlCommand(user, conexion);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Usuario '" + user + "' creado", "Escuela", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show("Se ha creado satisfactoriamente el inicio de sesión.");
             }
-            catch (Exception ex) //Atrapamos la excepción
+            catch (Exception ex)
             {
+                MessageBox.Show("Error al crear login", "Escuela", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MessageBox.Show(ex.ToString(), "Escuela", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            finally //Cerrammos el canal de comunicación de estar abierto pase lo que pase
+            finally
             {
+                // Cierra la conexion si se encuentra abierta
                 if (conexion.State == ConnectionState.Open)
                     conexion.Close();
             }
-
-            return credencialUsuario;
         }
-
-        public static void CreateTables(SqlConnection conexion, SqlCommand cmd, string databaseName, string serverName, Tuple<string, string> usuario)
+        // Crea la tabla
+        public static void CreateTables(SqlConnection conexion, SqlCommand cmd, string databaseName, string serverName)
         {
-            string conString = @"Server=" + serverName + ";Initial Catalog=" + databaseName + ";Integrated Security=SSPI";
+            // Se genera la cadena con la especificaciones de la coneccion a la base de datos
+            string conString = @"Data Source=" + serverName + ";Initial Catalog=" + databaseName + ";Integrated Security=SSPI";
             string sql;
+
+            // Ciera la conexion, si esta abierta
             if (conexion.State == ConnectionState.Open)
                 conexion.Close();
             conexion.ConnectionString = conString;
-
-            sql = "CREATE TABLE alumnos (id INT PRIMARY KEY NOT NULL IDENTITY(1001, 1) PRIMARY KEY," +
+            // Query que crea la base de datos
+            sql = "CREATE TABLE alumnos (id INT NOT NULL PRIMARY KEY," +
                 "nombre VARCHAR(20) NOT NULL, ap_paterno VARCHAR(20) NOT NULL, ap_materno VARCHAR(20) NOT NULL," +
-                "cal_examen REAL NOT NULL, cal_proyecto REAL NOT NULL, tareas INT NOT NULL";
-
+                "cal_examen REAL NOT NULL, cal_proyecto REAL NOT NULL, tareas INT NOT NULL, grupo INT NOT NULL)";
+            // Abre la conexion
+            conexion.Open();
             cmd = new SqlCommand(sql, conexion);
             try
             {
+                // Nombres de los alumnos
+                string[] nom = {"JOSE", "JUAN", "LUIS", "CARLOS", "LULU", "MARIA", "LAURA", "OLIVIA", 
+                    "ALAN", "ALEJANDRA", "SARAHI", "LUZ", "ALEJANDRO", "ANTONIO", "ABIGAIL" };
+                // Apellidos de los alumnos
+                string[] ape = {"SANCHEZ", "LOPEZ", "GARCIA", "JUAREZ", "TORRES", "MARQUEZ", "SALAZAR", "DOMINGUEZ", 
+                    "JIMENEZ", "MARTINEZ", "SANTIAGO", "GUERRERO", "REYES", "AVILES", "SOLIS" };
+                // Contador, sera el id del alumno
+                int contador = 1000;
+                // Variables
+                int i1, i2, i3, examen, proyecto, tareas, grupo;
+                Random rnum = new Random();
+                // Ejecuta el query con la creacion de la tabla
                 cmd.ExecuteNonQuery();
-                sql = "INSERT INTO alumnos() " +
-                    "VALUES (1001, 'Puneet Nehra', 'A 449 Sect 19, DELHI', 23.98 ) ";
-                cmd = new SqlCommand(sql, conexion);
-                cmd.ExecuteNonQuery();
+                // Ciclo con el que se insertan los registros en la tabla
+                for(int i = 0; i < 30; i++)
+                {
+                    i1 = rnum.Next(nom.Length); // Iterador 1
+                    i2 = rnum.Next(ape.Length); // Iterador 2
+                    i3 = rnum.Next(ape.Length); // Iterador 3
+                    examen = rnum.Next(11); // Calificacion del examen
+                    proyecto = rnum.Next(6, 11); // Calificacion del proyecto
+                    tareas = rnum.Next(5); // Numero de tareas
+                    grupo = rnum.Next(1, 3); // Grupo 1 o 2
+                    // Se genera el query que realiza los inserts
+                    sql = "INSERT INTO alumnos(id, nombre, ap_paterno, ap_materno, cal_examen, cal_proyecto, tareas, grupo) " +
+                    "VALUES (" + contador + ", '" + nom[i1] + "', '" + ape[i2] + "', '" + ape[i3] +"', " +
+                    "'"+ examen + "', '" + proyecto + "', '" + tareas + "', '"+ grupo +"') ";
+                    // Guarda ek query
+                    cmd = new SqlCommand(sql, conexion);
+                    contador++;
+                    // Ejecuta el query
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.ToString(), "Escuela", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            finally         //Cerrammos el canal de comunicación de estar abierto pase lo que pase
+            finally
             {
                 if (conexion.State == ConnectionState.Open)
                     conexion.Close();
             }
-            /*
-        //Nos concectamos a la instancia local del servidor SQL
-        Server srv;
-        srv = new Server();
-
-        //Entramos a la base de datos que creamos
-        Database db;
-        db = srv.Databases[databaseName];   
-        
-        
-                //########## Tabla Grupos ##########
-                //Definimos un objeto de tipo tabla para usar su constructor donde le mandamos la instancia de la base de datos y el nombre de la tabla
-                Table tb_Grupos;
-        tb_Grupos = new Table(db, "Grupos");
-
-        //Añadimos columnas a la tabla
-
-        //---------- Columna GrupoID ----------
-        Column gpID;
-        gpID = new Column(tb_Grupos, "GrupoID", DataType.Int);
-        gpID.Identity = true;
-                gpID.IdentitySeed = 1;
-                gpID.IdentityIncrement = 1;
-                tb_Grupos.Columns.Add(gpID);
-                //Creamos una columna con un valor entero serial que incrementa en uno y que se usará como llave principal
-
-        
-                //---------- Columna NombreGrupo ----------
-                Column gpName;
-        gpName = new Column(tb_Grupos, "Nombre", DataType.NChar(25));   
-                gpName.Collation = "Latin1_General_CI_AS";   
-                gpName.Nullable = false;
-                tb_Grupos.Columns.Add(gpName);
-                //Creamos una columna con un valor de tipo caracter que acepta caracteres del teclado latinoamericano
-
-                //---------- Columna Cupo ----------
-                Column gpCupo;
-        gpCupo = new Column(tb_Grupos, "Cupo", DataType.Int);
-        gpCupo.Nullable = true;
-                tb_Grupos.Columns.Add(gpCupo);
-
-
-                //Creamos la tabla anterior en el servidor
-                tb_Grupos.Create();
-        
-
-                //########## Tabla Materias ##########
-                Table tb_Materias;
-        tb_Materias = new Table(db, "Grupos");
-
-        //---------- Columna MateriaID ----------
-        Column matID;
-        matID = new Column(tb_Materias, "MateriaID", DataType.Int);
-        matID.Identity = true;
-                matID.IdentitySeed = 1;
-                matID.IdentityIncrement = 1;
-                tb_Materias.Columns.Add(matID);
-        
-                //---------- Columna NombreGrupo ----------
-                Column matName;
-        matName = new Column(tb_Materias, "Nombre", DataType.NChar(25));   
-                matName.Collation = "Latin1_General_CI_AS";   
-                matName.Nullable = false;
-                tb_Materias.Columns.Add(matName);
-        
-        
-                //Creamos la tabla anterior en el servidor
-                tb_Materias.Create();
-
-
-                //########## Tabla Alumnos ##########
-                Table tb_Alumnos;
-        tb_Alumnos = new Table(db, "Grupos");
-
-        //Añadimos columnas a la tabla
-        //---------- Columna GrupoID ----------
-        Column aluID;
-        aluID = new Column(tb_Alumnos, "AlumnoID", DataType.Int);
-        aluID.Identity = true;
-                aluID.IdentitySeed = 1;
-                aluID.IdentityIncrement = 1;
-                tb_Alumnos.Columns.Add(aluID);
-
-                //---------- Columna NombreAlumno ----------
-                Column aluName;
-        aluName = new Column(tb_Alumnos, "Nombre", DataType.NChar(25));   
-                aluName.Collation = "Latin1_General_CI_AS";   
-                aluName.Nullable = false;
-                tb_Alumnos.Columns.Add(aluName);
-
-                //---------- Columna ApPatAlumno ----------
-                Column aluPat;
-        aluPat = new Column(tb_Alumnos, "Apellido Paterno", DataType.NChar(25));   
-                aluPat.Collation = "Latin1_General_CI_AS";   
-                aluPat.Nullable = false;
-                tb_Alumnos.Columns.Add(aluPat);
-
-                //---------- Columna ApMatAlumno ----------
-                Column aluMat;
-        aluMat = new Column(tb_Alumnos, "Apellido Materno", DataType.NChar(25));   
-                aluMat.Collation = "Latin1_General_CI_AS";   
-                aluMat.Nullable = true;
-                tb_Alumnos.Columns.Add(aluMat);
-
-                //---------- Columna FechaAlta ----------
-                Column aluAlta;
-        aluAlta = new Column(tb_Alumnos, "Fecha de alta", DataType.DateTime);
-        aluAlta.Nullable = false;   
-        tb_Alumnos.Columns.Add(aluAlta);   
-
-        //Creamos la tabla anterior en el servidor
-        tb_Alumnos.Create();*/
-
-            /*
-            //################# Metodos adicionales #################
-            //Para usar la fecha como valor en una columna
-            Column nombreColumna;
-            nombreColumna = new Column(tb_Grupos, "Fecha", DataType.DateTime);   
-            nombreColumna.Nullable = false;   
-            tb_Grupos.Columns.Add(nombreColumna);
-            //Si queremos añadir otra columna
-            Column nombreColumna;   
-            nombreColumna = new Column(tb, "nombreColumna", DataType.DateTime);   
-            nombreColumna.Nullable = false;   
-            tb.Columns.Add(nombreColumna);   
-            //Usamos el método alter sobre el objeto tb
-            tb.Alter();   
-            //Si queremos eliminar la tabla
-            tb.Drop();
-            */
         }
     }
 }

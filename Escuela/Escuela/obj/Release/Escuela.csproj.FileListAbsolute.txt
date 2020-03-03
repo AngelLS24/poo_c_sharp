@@ -1,0 +1,10 @@
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Release\Escuela.csprojAssemblyReference.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Release\Escuela.FProfesores.resources
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Release\Escuela.Menu.resources
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Release\Escuela.Properties.Resources.resources
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Release\Escuela.csproj.GenerateResource.cache
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\bin\Release\Escuela.exe.config
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\bin\Release\Escuela.exe
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\bin\Release\Escuela.pdb
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Release\Escuela.exe
+C:\Users\Angel\Desktop\poo_c_sharp\Escuela\Escuela\obj\Release\Escuela.pdb
