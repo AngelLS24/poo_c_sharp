@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Angel\\.nuget\\packages\\": {}
+    "C:\\Users\\acmep\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Angel\\Desktop\\poo_c_sharp\\Tareas\\Calificaciones\\Calificaciones\\Calificaciones.csproj",
+      "projectUniqueName": "D:\\AlanHDD\\Apuntes\\10mo\\PBSI\\MOD2\\poo_c_sharp\\Tareas\\Calificaciones\\Calificaciones\\Calificaciones.csproj",
       "projectName": "Calificaciones",
-      "projectPath": "C:\\Users\\Angel\\Desktop\\poo_c_sharp\\Tareas\\Calificaciones\\Calificaciones\\Calificaciones.csproj",
-      "packagesPath": "C:\\Users\\Angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Angel\\Desktop\\poo_c_sharp\\Tareas\\Calificaciones\\Calificaciones\\obj\\",
+      "projectPath": "D:\\AlanHDD\\Apuntes\\10mo\\PBSI\\MOD2\\poo_c_sharp\\Tareas\\Calificaciones\\Calificaciones\\Calificaciones.csproj",
+      "packagesPath": "C:\\Users\\acmep\\.nuget\\packages\\",
+      "outputPath": "D:\\AlanHDD\\Apuntes\\10mo\\PBSI\\MOD2\\poo_c_sharp\\Tareas\\Calificaciones\\Calificaciones\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\acmep\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
